@@ -16,14 +16,12 @@ export default function Register({ navigation }) {
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
 
-  
+  const BASE_URL = "https://techquiz-api.herokuapp.com"
 
 
   const storeEmail = async (email) => {
-    console.log(email)
   try {
     await AsyncStorage.setItem('@email', email)
-    console.log('email successfully stored')
   } catch (e) {
     alert('Failed to save the email to the storage', e)
   }
@@ -35,7 +33,7 @@ const signup = async (username, email, password) => {
     
     const data = { username, email, password};
 
-fetch('http://techquiz.us-east-1.elasticbeanstalk.com/create', {
+fetch(`${BASE_URL}/create`, {
   method: 'POST', // or 'PUT'
   headers: {
     'Content-Type': 'application/json',
@@ -44,8 +42,6 @@ fetch('http://techquiz.us-east-1.elasticbeanstalk.com/create', {
 })
 .then(response => response.json())
 .then(data => {
-  console.log('Success:', data);
-
   if(data['detail'] !== undefined) 
   alert(data.detail.error)
   else {
@@ -74,7 +70,6 @@ finally{
 
 
 useEffect(() => {
-  console.log(username, email, password, password2)
 }, [username,email, password, password2])
   return (
     <View style={styles.regform}>
@@ -118,7 +113,6 @@ useEffect(() => {
         
           
           onPress={async () => {
-            console.log('hello')
                           if(!username || !email || !password || !password){
                             alert("fill all details")
                             return 

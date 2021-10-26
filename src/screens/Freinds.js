@@ -32,15 +32,15 @@ export default function Friends() {
   const [token, setToken] = useState("");
   const STORAGE_KEY = "@save_token";
 
+  const BASE_URL = "https://techquiz-api.herokuapp.com"
+
   const [friendsList, setFriendsList] = useState([]);
-  console.log("friends list has value", friendsList);
   const readData = async () => {
     try {
       const token = await AsyncStorage.getItem(STORAGE_KEY);
 
       if (token !== null) {
         setToken(token);
-        console.log(token);
       }
     } catch (e) {
       alert("Failed to fetch the data from storage");
@@ -52,8 +52,7 @@ export default function Friends() {
   }, []);
 
   const getFriends = () => {
-    console.log("it ran");
-    fetch(`http://techquiz.us-east-1.elasticbeanstalk.com/user/friend/get`, {
+    fetch(`${BASE_URL}/user/friend/get`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
@@ -68,9 +67,8 @@ export default function Friends() {
   };
 
   const getResults = () => {
-    console.log("token is", token);
     fetch(
-      `http://techquiz.us-east-1.elasticbeanstalk.com/user/friend/search?username=${keyword}`,
+      `${BASE_URL}/user/friend/search?username=${keyword}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -88,7 +86,7 @@ export default function Friends() {
 
   const removeFriend = (id) => {
     fetch(
-      `http://techquiz.us-east-1.elasticbeanstalk.com/user/friend/remove?id=${id}`,
+      `${BASE_URL}/user/friend/remove?id=${id}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
@@ -110,7 +108,7 @@ export default function Friends() {
 
   const addFriend = (username) => {
     fetch(
-      `http://techquiz.us-east-1.elasticbeanstalk.com/user/friend/add?username=${username}`,
+      `${BASE_URL}/user/friend/add?username=${username}`,
       {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },

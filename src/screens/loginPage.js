@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect } from "react/cjs/react.development";
 
 const STORAGE_KEY = '@save_token'
+const BASE_URL = "https://techquiz-api.herokuapp.com"
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -41,7 +42,7 @@ const forgotPassword = () => {
     return
   }
   else{
-  fetch(`http://techquiz.us-east-1.elasticbeanstalk.com/forgetpassword?email=${email}`, {
+  fetch(`${BASE_URL}/forgetpassword?email=${email}`, {
     method: 'POST'
   })
   .then((response) => response.json())

@@ -4,7 +4,7 @@ const signup = async (username, email, password) => {
     
     const data = { username, email, password};
     let returnValue = {}
-fetch('http://techquiz.us-east-1.elasticbeanstalk.com/create', {
+fetch('https://techquiz-api.herokuapp.com/create', {
   method: 'POST', // or 'PUT'
   headers: {
     'Content-Type': 'application/json',
@@ -13,8 +13,6 @@ fetch('http://techquiz.us-east-1.elasticbeanstalk.com/create', {
 })
 .then(response => response.json())
 .then(data => {
-  console.log('Success:', data);
-
   if(data['detail'] !== undefined) 
   alert(data.detail.error)
   else {

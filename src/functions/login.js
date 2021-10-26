@@ -1,7 +1,6 @@
 const login = async (email, password) => {
   try {
     var formdata = new FormData();
-    console.log(email, password);
     formdata.append("username", email);
     formdata.append("password", password);
 
@@ -11,7 +10,7 @@ const login = async (email, password) => {
       redirect: 'follow'
     };
 
-    const response = await fetch("http://techquiz.us-east-1.elasticbeanstalk.com/login", requestOptions)
+    const response = await fetch("https://techquiz-api.herokuapp.com/login", requestOptions)
     const data = await response.json()
     if(!data.detail){
       return data

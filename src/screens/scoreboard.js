@@ -5,10 +5,12 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 export default function Scoreboard({navigation}){
     const [scoreData, setScoreData] = useState([])
     const [loading, setLoading] = useState(true)
+    const BASE_URL = "https://techquiz-api.herokuapp.com"
+
     let value = 0
     useEffect(()=> {
     fetch(
-      `http://techquiz.us-east-1.elasticbeanstalk.com/leaderboard/`
+      `${BASE_URL}/leaderboard/`
     )
       .then((response) => response.json())
       .then((json) => {
