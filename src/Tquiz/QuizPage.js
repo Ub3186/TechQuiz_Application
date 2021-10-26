@@ -15,6 +15,8 @@ import ConfettiCannon from 'react-native-confetti-cannon';
 import Explosion from "react-native-confetti-cannon";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
+const BASE_URL = "https://techquiz-api.herokuapp.com"
+
 
 export default function QuizPage({navigation}) {
   const language = navigation.getParam('language')
@@ -27,12 +29,12 @@ export default function QuizPage({navigation}) {
   const [token, setToken] = useState('')
   const [currentQuestion, setCurrentQuestion] = useState({});
     
-      const STORAGE_KEY = '@save_token'
+  const STORAGE_KEY = '@save_token'
 
  
   useEffect(()=> {
     fetch(
-      `http://techquiz.us-east-1.elasticbeanstalk.com/question/${language}/${difficulty}?skip=${Math.round(Math.random()*20)}` 
+      `${BASE_URL}/question/${language}/${difficulty}?skip=${Math.round(Math.random()*20)}` 
     )
       .then((response) => response.json())
       .then((json) => {
@@ -55,7 +57,7 @@ function updateScores(){
   try{
 
   
-  fetch(`http://techquiz.us-east-1.elasticbeanstalk.com/user/score?score=${score}`, {
+  fetch(`${BASE_URL}/user/score?score=${score}`, {
       method: "PATCH",  
       headers: {"Authorization" : `Bearer ${token}`},  
       }).then(response => {

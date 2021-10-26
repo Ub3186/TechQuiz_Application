@@ -16,12 +16,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Profile({ navigation }) {
 
-      const STORAGE_KEY = '@save_token'
+  const STORAGE_KEY = '@save_token'
   const [token, setToken] = useState('')
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const BASE_URL = "https://techquiz-api.herokuapp.com"
 
 
 const readData = async () => {
@@ -43,7 +45,7 @@ useEffect(()=> {
 
 useEffect(() => {
 fetch(
-      `http://techquiz.us-east-1.elasticbeanstalk.com/user/me`,
+      `${BASE_URL}/user/me`,
       {   
           method: 'GET',
           headers: {"Authorization" : `Bearer ${token}`}
@@ -67,7 +69,7 @@ const updateProfile = () => {
 
   const data = { username, email, password};
       fetch(
-      `http://techquiz.us-east-1.elasticbeanstalk.com/user/me`,
+      `${BASE_URL}/user/me`,
       {   
           method: 'PATCH',
           headers: {
@@ -97,7 +99,7 @@ const updateProfile = () => {
 
 const deleteProfile = () => {
       fetch(
-      `http://techquiz.us-east-1.elasticbeanstalk.com/user/me`,
+      `${BASE_URL}/user/me`,
       {   
           method: 'DELETE',
           headers: {"Authorization" : `Bearer ${token}`}
